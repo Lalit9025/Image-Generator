@@ -31,7 +31,7 @@ const imageGenerateController = (req, res) => __awaiter(void 0, void 0, void 0, 
     }
     catch (error) {
         console.log(error);
-        res.status(500).send({
+        res.status(500).json({
             error,
         });
     }

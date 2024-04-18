@@ -2,7 +2,12 @@ import { Request, Response } from "express"
 import postModel from "../models/postModel";
 import { v2 as cloudinary } from 'cloudinary'
 
+interface createPost {
+    name: string,
+    prompt: string,
+    photo: any,
 
+}
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -32,7 +37,7 @@ export const getAllPostController = async (req:Request,res: Response) => {
 // create a post
 export const createPostController = async (req:Request, res:Response) => {
     try {
-        const {name, prompt, photo} = req.body;
+        const {name, prompt, photo} : createPost = req.body;
         const photoURL = await cloudinary.uploader.upload(photo);
 
         const newPost = await postModel.create({

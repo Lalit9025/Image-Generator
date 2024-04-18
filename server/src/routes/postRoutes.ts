@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
 import * as dotenv from 'dotenv'
-import { v2 as cloudinary } from 'cloudinary'
+
 
 import { createPostController, getAllPostController } from '../controllers/postController';
 

@@ -4,8 +4,12 @@ import OpenAIApi from "openai";
 const openai = new OpenAIApi({
     apiKey: process.env.OPENAI_API_KEY,
 })
-
-export const imageGenerateController = async (req : Request,res: Response) => {
+interface ImageGenerationRequest {
+    prompt: string;
+}
+export const imageGenerateController = async (
+    req : Request<ImageGenerationRequest>,
+    res: Response) => {
     try {
         const { prompt } = req.body;
 
@@ -21,7 +25,7 @@ export const imageGenerateController = async (req : Request,res: Response) => {
         
     } catch (error) {
         console.log(error);
-        res.status(500).send({
+        res.status(500).json({
             error,
         })
     }

@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
-const postSchema = new mongoose.Schema({
+interface post {
+    name: string,
+    prompt: string,
+    photo: string,
+}
+const postSchema = new mongoose.Schema<post>({
     name:{
         type: String,
         required: true,
@@ -15,4 +20,4 @@ const postSchema = new mongoose.Schema({
     }
 })
 
-export default mongoose.model('Post', postSchema);
+export default mongoose.model<post>('Post', postSchema);

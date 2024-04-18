@@ -51,7 +51,7 @@ app.use(express_1.default.json());
 //routes
 app.use('/api/v1/post', postRoutes_1.default);
 app.use('/api/v1/dalle', dalleRoutes_1.default);
-const PORT = 8080 || process.env.PORT;
+const PORT = 8080 || parseInt(process.env.PORT || '8080', 10);
 app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send("Hello, How are you ?");
 }));
