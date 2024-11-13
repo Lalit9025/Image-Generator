@@ -41,11 +41,14 @@ const dotenv = __importStar(require("dotenv"));
 const postRoutes_1 = __importDefault(require("./routes/postRoutes"));
 const dalleRoutes_1 = __importDefault(require("./routes/dalleRoutes"));
 const cors_1 = __importDefault(require("cors"));
+const body_parser_1 = __importDefault(require("body-parser"));
 dotenv.config();
 //database connection
 (0, connect_1.default)();
 const app = (0, express_1.default)();
 //middlewares
+app.use(body_parser_1.default.json({ limit: '10mb' }));
+app.use(body_parser_1.default.urlencoded({ limit: '10mb', extended: true }));
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 //routes

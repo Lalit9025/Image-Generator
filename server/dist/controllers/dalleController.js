@@ -13,26 +13,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.imageGenerateController = void 0;
-const openai_1 = __importDefault(require("openai"));
-const openai = new openai_1.default({
-    apiKey: process.env.OPENAI_API_KEY,
-});
+const axios_1 = __importDefault(require("axios"));
 const imageGenerateController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { prompt } = req.body;
-        const aiResponse = yield openai.images.generate({
-            prompt,
-            n: 1,
-            size: "1024x1024",
-            response_format: "b64_json",
-        });
-        const image = aiResponse.data[0].b64_json;
-        res.status(200).json({ photo: image });
+        const apiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}`;
+        const aiResponse = yield axios_1.default.get(apiUrl, { responseType: "arraybuffer" });
+        const imageBuffer = Buffer.from(aiResponse.data, "binary").toString("base64");
+        res.status(200).json({ photo: `data:image/jpeg;base64,${imageBuffer}` });
     }
     catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({
-            error,
+            error: "Failed to generate image.",
         });
     }
 });

@@ -27,14 +27,16 @@ const CreatePost : React.FC = () => {
     if(form.prompt){
       try {
         setGeneratingImg(true);
-        console.log(form.prompt);
+        console.log('Prompt:', form.prompt);
         const response = await axios.post<{photo: string}>('http://localhost:8080/api/v1/dalle', {
           prompt: form.prompt
         });
+        console.log(response)
 
         const data = response.data.photo;
 
-        setForm({ ...form, photo: `data:image/jpeg;base64, ${data}` });
+        // setForm({ ...form, photo: `data:image/jpeg;base64,${data}` });
+        setForm({ ...form, photo: data });
 
        
         
@@ -56,11 +58,12 @@ const CreatePost : React.FC = () => {
       setLoading(true);
 
       try {
-        const response = await axios.post('https://localhost:8080/api/v1/post',{
+        await axios.post('http://localhost:8080/api/v1/post',{
           name:form.name,
           prompt: form.prompt,
           photo: form.photo,
         });
+        console.log('done')
 
         navigate('/');
         
@@ -99,7 +102,7 @@ const CreatePost : React.FC = () => {
             value ={form.name}
             handleChange={handleChange}
             isSurpriseMe
-            handleSurpriseMe={''}
+            handleSurpriseMe={handleSurpriseMe}
           />
           <FormField 
             labelName ='Prompt'

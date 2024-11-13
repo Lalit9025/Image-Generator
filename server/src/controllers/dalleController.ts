@@ -1,32 +1,28 @@
 import { Request, Response } from "express";
-import OpenAIApi from "openai";
+import axios from "axios";
 
-const openai = new OpenAIApi({
-    apiKey: process.env.OPENAI_API_KEY,
-})
 interface ImageGenerationRequest {
     prompt: string;
 }
+
 export const imageGenerateController = async (
-    req : Request<ImageGenerationRequest>,
-    res: Response) => {
+    req: Request<ImageGenerationRequest>,
+    res: Response
+) => {
     try {
         const { prompt } = req.body;
+        
+        const apiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}`;
 
-        const aiResponse = await openai.images.generate({
-            prompt,
-            n:1,
-            size: "1024x1024",
-            response_format: "b64_json",
-        });
-        const image = aiResponse.data[0].b64_json;
-        res.status(200).json({photo:image})
-
+        const aiResponse = await axios.get(apiUrl, { responseType: "arraybuffer" });
+        const imageBuffer = Buffer.from(aiResponse.data, "binary").toString("base64");
+    
+        res.status(200).json({ photo: `data:image/jpeg;base64,${imageBuffer}` });
         
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({
-            error,
-        })
+            error: "Failed to generate image.",
+        });
     }
-}
+};

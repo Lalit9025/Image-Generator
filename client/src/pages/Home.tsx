@@ -36,7 +36,7 @@ const Home = () => {
       setLoading(true);
 
       try {
-        const {data} = await axios.get('https://localhost:8080/api/v1/post');
+        const {data} = await axios.get('http://localhost:8080/api/v1/post');
 
         if(data?.success){
           setAllPosts(data?.posts.reverse());

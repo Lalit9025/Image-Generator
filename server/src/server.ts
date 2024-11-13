@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 import postRoutes from './routes/postRoutes';
 import dalleRoutes from './routes/dalleRoutes'
 import cors from 'cors';
+import bodyParser from 'body-parser'
 
 dotenv.config();
 
@@ -14,6 +15,8 @@ connectDB();
 const app = express();
 
 //middlewares
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.use(cors());
 app.use(express.json());
 
