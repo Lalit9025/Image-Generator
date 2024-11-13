@@ -34,3 +34,4 @@ const router = express_1.default.Router();
 router.get('/', postController_1.getAllPostController);
 router.post('/', postController_1.createPostController);
 exports.default = router;
+//# sourceMappingURL=postRoutes.js.map

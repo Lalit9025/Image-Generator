@@ -36,3 +36,4 @@ router.get('/', (req, res) => {
 });
 router.post('/', dalleController_1.imageGenerateController);
 exports.default = router;
+//# sourceMappingURL=dalleRoutes.js.map

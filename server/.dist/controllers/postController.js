@@ -24,7 +24,7 @@ cloudinary_1.v2.config({
 const getAllPostController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const posts = yield postModel_1.default.find({});
-        console.log("hi", posts);
+        // console.log("hi", posts)
         res.status(200).json({
             success: true,
             message: 'Got All Post',
@@ -73,3 +73,4 @@ const createPostController = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.createPostController = createPostController;
+//# sourceMappingURL=postController.js.map
