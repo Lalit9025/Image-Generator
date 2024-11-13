@@ -28,7 +28,7 @@ const CreatePost : React.FC = () => {
       try {
         setGeneratingImg(true);
         console.log('Prompt:', form.prompt);
-        const response = await axios.post<{photo: string}>('http://localhost:8080/api/v1/dalle', {
+        const response = await axios.post<{photo: string}>(`${import.meta.env.VITE_FRONTEND_URL}/api/v1/dalle`, {
           prompt: form.prompt
         });
         console.log(response)
@@ -58,7 +58,7 @@ const CreatePost : React.FC = () => {
       setLoading(true);
 
       try {
-        await axios.post('http://localhost:8080/api/v1/post',{
+        await axios.post(`${import.meta.env.VITE_FRONTEND_URL}/api/v1/post`,{
           name:form.name,
           prompt: form.prompt,
           photo: form.photo,
