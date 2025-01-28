@@ -24,6 +24,7 @@ const CreatePost : React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const generateImage = async () => {
+    console.log('Generating Image');
     if(form.prompt){
       try {
         setGeneratingImg(true);
@@ -52,10 +53,12 @@ const CreatePost : React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(form)
    
 
     if(form.prompt && form.photo){
       setLoading(true);
+      console.log(form.name, form.prompt, form.photo);
 
       try {
         await axios.post(`${import.meta.env.VITE_FRONTEND_URL}/api/v1/post`,{
